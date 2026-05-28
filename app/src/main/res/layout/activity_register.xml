@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Register">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/logo"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        app:civ_border_color="@color/colorPrimaryDark"
+        />
+
+
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="  User name *"
+        android:layout_marginTop="35dp"
+        android:drawableLeft="@android:drawable/ic_menu_myplaces"
+        android:drawablePadding="5dp"
+        android:drawableTint="#17023E"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:padding="40px"
+        android:textColor="@color/gray"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="  Email *"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@android:drawable/ic_dialog_email"
+        android:drawablePadding="5dp"
+        android:drawableTint="#673AB7"
+        android:ems="10"
+        android:padding="40px"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="  Password *"
+        android:inputType="textPassword"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+        android:drawablePadding="5dp"
+        android:drawableTint="#673AB7"
+        android:ems="10"
+        android:textColor="@color/black"
+        android:padding="40px"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/etConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="  Confirm Password *"
+        android:inputType="textPassword"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+        android:drawablePadding="5dp"
+        android:drawableTint="#673AB7"
+        android:ems="10"
+        android:textColor="@color/black"
+        android:padding="40px"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/btnRegister2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp"/>
+
+</LinearLayout>
+
