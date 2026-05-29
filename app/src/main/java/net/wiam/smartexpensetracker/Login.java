@@ -1,4 +1,5 @@
 package net.wiam.smartexpensetracker;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,10 +39,26 @@ public class Login extends AppCompatActivity {
                             "Please fill all fields",
                             Toast.LENGTH_SHORT).show();
                 }
-                else{
-                    Toast.makeText(Login.this,
-                            "Login Success",
-                            Toast.LENGTH_SHORT).show();
+                else {
+
+                    UserSession session = new UserSession(Login.this);
+
+                    if (session.checkUser(email, password)) {
+
+                        Toast.makeText(Login.this,
+                                "Login Success",
+                                Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(Login.this, Dashboard.class);
+                        startActivity(intent);
+                        finish();
+
+                    } else {
+
+                        Toast.makeText(Login.this,
+                                "Invalid email or password",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -55,8 +72,8 @@ public class Login extends AppCompatActivity {
                         "Go to Register Page",
                         Toast.LENGTH_SHORT).show();
 
-                // Intent intent = new Intent(Login.this, Register.class);
-                // startActivity(intent);
+                 Intent intent = new Intent(Login.this, Register.class);
+                startActivity(intent);
             }
         });
 

@@ -22,7 +22,14 @@
             android:text="Dashboard"
             android:textSize="28sp"
             android:textStyle="bold"/>
-
+        <TextView
+            android:id="@+id/tvUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User"
+            android:textSize="18sp"
+            android:layout_gravity="end"
+            android:layout_marginRight="20dp"/>
         <Switch
             android:id="@+id/switchDark"
             android:layout_width="wrap_content"
@@ -50,11 +57,29 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"/>
 
+    <Button
+        android:id="@+id/btnSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+
+    <Button
+        android:id="@+id/btnStatistics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Statistics"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerExpenses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"/>
+
 
 </LinearLayout>

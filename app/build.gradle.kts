@@ -5,16 +5,12 @@ plugins {
 
 android {
     namespace = "net.wiam.smartexpensetracker"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "net.wiam.smartexpensetracker"
         minSdk = 30
-        targetSdk = 36
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -44,9 +40,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.activity:activity:1.10.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.1")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
 }

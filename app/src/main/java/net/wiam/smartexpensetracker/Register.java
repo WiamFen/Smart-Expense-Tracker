@@ -2,6 +2,7 @@ package net.wiam.smartexpensetracker;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -54,14 +55,18 @@ public class Register extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }
 
-                else{
+                else {
+
+                    UserSession session = new UserSession(Register.this);
+                    session.saveUser(name, email, password);
 
                     Toast.makeText(Register.this,
                             "Registration Success",
                             Toast.LENGTH_SHORT).show();
 
-                    // Ici tu peux ajouter:
-                    // Firebase, SQLite, MySQL API, etc.
+                    Intent intent = new Intent(Register.this, Login.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
