@@ -1,6 +1,8 @@
 package net.wiam.smartexpensetracker;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +34,7 @@ public class Statistics extends AppCompatActivity {
     BarChart barChart;
     BarChart histogramChart;
     Switch switchDark;
+    Button btnHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,18 @@ public class Statistics extends AppCompatActivity {
         barChart = findViewById(R.id.barChart);
         histogramChart = findViewById(R.id.histogramChart);
         switchDark = findViewById(R.id.switchDark);
+        btnHome = findViewById(R.id.btnHome);
+
+        btnHome.setOnClickListener(v -> {
+
+            Intent intent =
+                    new Intent(Statistics.this,
+                            Dashboard.class);
+
+            startActivity(intent);
+
+            finish();
+        });
 
         switchDark.setOnCheckedChangeListener((buttonView, isChecked) -> {
 

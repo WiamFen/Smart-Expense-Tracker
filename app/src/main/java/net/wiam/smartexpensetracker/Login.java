@@ -1,5 +1,4 @@
 package net.wiam.smartexpensetracker;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,53 +7,75 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class Login extends AppCompatActivity {
-    EditText etMail, etPassword;
-    Button btnLogin;
-    TextView tvRegister;
+
+    EditText etEmail, etPassword;
+    Button btnLogin2;
+    TextView textView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        etMail=findViewById(R.id.etEmail);
-        etPassword=findViewById(R.id.etPassword);
-        btnLogin=findViewById(R.id.btnLogin2);
-        tvRegister=findViewById(R.id.textView2);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        // Liaison XML -> Java
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        btnLogin2 = findViewById(R.id.btnLogin2);
+        textView2 = findViewById(R.id.textView2);
+
+        // Action bouton Login
+        btnLogin2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (etMail.getText().toString().equals("Wiam") &&
-                        etPassword.getText().toString().equals("Wiam123")){
-                    Intent i1=new Intent(getApplicationContext(),Dashboard.class);
-                    startActivity(i1);
-                }else {
+            public void onClick(View view) {
+
+                String email = etEmail.getText().toString();
+                String password = etPassword.getText().toString();
+
+                if(email.isEmpty() || password.isEmpty()){
                     Toast.makeText(Login.this,
-                            "Login or password incorrect !",
+                            "Please fill all fields",
                             Toast.LENGTH_SHORT).show();
+                }
+                else {
+
+                    UserSession session = new UserSession(Login.this);
+
+                    if (session.checkUser(email, password)) {
+
+                        Toast.makeText(Login.this,
+                                "Login Success",
+                                Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(Login.this, Dashboard.class);
+                        startActivity(intent);
+                        finish();
+
+                    } else {
+
+                        Toast.makeText(Login.this,
+                                "Invalid email or password",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
 
-        tvRegister.setOnClickListener(new View.OnClickListener() {
+        // Action TextView Register
+        textView2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent i2=new Intent(getApplicationContext(),Register.class);
-                startActivity(i2);
+            public void onClick(View view) {
+
+                Toast.makeText(Login.this,
+                        "Go to Register Page",
+                        Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(Login.this, Register.class);
+                startActivity(intent);
             }
         });
+
     }
 }

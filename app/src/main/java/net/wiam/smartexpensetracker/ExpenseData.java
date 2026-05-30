@@ -1,9 +1,13 @@
 package net.wiam.smartexpensetracker;
 
+import java.util.ArrayList;
+
 public class ExpenseData {
     String category;
     String amount;
     String date;
+
+    public static ArrayList<Expense> expenseList = new ArrayList<>();
 
     public ExpenseData(String category, String amount, String date) {
         this.category = category;

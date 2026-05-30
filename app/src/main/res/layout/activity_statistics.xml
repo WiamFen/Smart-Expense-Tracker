@@ -28,6 +28,15 @@
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/btnHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textSize="18sp"
+                android:layout_gravity="end"
+                android:layout_marginRight="20dp"/>
+
             <Switch
                 android:id="@+id/switchDark"
                 android:layout_width="wrap_content"

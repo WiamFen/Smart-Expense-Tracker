@@ -3,172 +3,130 @@ package net.wiam.smartexpensetracker;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Calendar;
 
 public class AddExpense extends AppCompatActivity {
 
+    Switch switchDark;
+    EditText etAmount, etDescription;
+    Spinner spCategory;
+    Button btnDate, btnSave, btnHome;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        EditText etAmount, etDescription;
-
-        Spinner spCategory;
-
-        Button btnDate, btnSave;
-
-        Switch switchDark;
-
-        String selectedDate = "";
-
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_expense);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
+        // Liaison XML
+        switchDark = findViewById(R.id.switchDark);
         etAmount = findViewById(R.id.etAmount);
-
         etDescription = findViewById(R.id.etDescription);
-
         spCategory = findViewById(R.id.spCategory);
-
         btnDate = findViewById(R.id.btnDate);
-
         btnSave = findViewById(R.id.btnSave);
 
-        switchDark = findViewById(R.id.switchDark);
+        btnHome = findViewById(R.id.btnHome);
 
-        // Spinner categories
+        btnHome.setOnClickListener(v -> {
 
-        String[] categories = {
-                "Food",
-                "Transport",
-                "Shopping",
-                "Bills",
-                "Health",
-                "Other"
-        };
+            Intent intent =
+                    new Intent(AddExpense.this,
+                            Dashboard.class);
 
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(
-                        this,
-                        android.R.layout.simple_spinner_dropdown_item,
-                        categories
-                );
+            startActivity(intent);
+
+            finish();
+        });
+
+        // =====================
+        // SPINNER CATEGORY
+        // =====================
+        String[] categories = {"Food", "Transport", "Shopping", "Bills", "Other"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                categories
+        );
 
         spCategory.setAdapter(adapter);
 
-        // Date Picker
+        // =====================
+        // DARK MODE
+        // =====================
+        switchDark.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-        btnDate.setOnClickListener(v -> {
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                Toast.makeText(this, "Dark Mode Enabled", Toast.LENGTH_SHORT).show();
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                Toast.makeText(this, "Light Mode Enabled", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // =====================
+        // DATE PICKER
+        // =====================
+        btnDate.setOnClickListener(view -> {
 
             Calendar calendar = Calendar.getInstance();
 
             int year = calendar.get(Calendar.YEAR);
-
             int month = calendar.get(Calendar.MONTH);
-
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-            DatePickerDialog datePickerDialog =
-                    new DatePickerDialog(
-                            AddExpense.this,
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    AddExpense.this,
+                    (DatePicker view1, int selectedYear, int selectedMonth, int selectedDay) -> {
 
-                            (view, year1, month1, dayOfMonth) -> {
+                        String date = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                        btnDate.setText(date);
 
-                                String date =
-                                        dayOfMonth + "/"
-                                                + (month1 + 1)
-                                                + "/"
-                                                + year1;
-
-                                btnDate.setText(date);
-
-                            },
-
-                            year,
-                            month,
-                            day
-                    );
+                    },
+                    year, month, day
+            );
 
             datePickerDialog.show();
-
         });
 
-        // Save Expense
+        // =====================
+        // SAVE BUTTON
+        // =====================
+        btnSave.setOnClickListener(view -> {
 
-        btnSave.setOnClickListener(v -> {
+            String amount = etAmount.getText().toString();
+            String category = spCategory.getSelectedItem().toString();
+            String date = btnDate.getText().toString();
 
-            String amount =
-                    etAmount.getText().toString();
+            if (amount.isEmpty()) {
+                Toast.makeText(this, "Enter amount", Toast.LENGTH_SHORT).show();
+            } else {
 
-            String description =
-                    etDescription.getText().toString();
+                // 1. Ajouter dans "database"
+                ExpenseData.expenseList.add(
+                        new Expense(category, amount, date)
+                );
 
-            String category =
-                    spCategory.getSelectedItem().toString();
+                Toast.makeText(this, "Expense Saved", Toast.LENGTH_SHORT).show();
 
-            if(amount.isEmpty()) {
-
-                etAmount.setError("Enter amount");
-
-                return;
+                // 2. Retour Dashboard
+                Intent intent = new Intent(AddExpense.this, Dashboard.class);
+                startActivity(intent);
+                finish();
             }
-
-            Toast.makeText(
-                    AddExpense.this,
-                    "Expense Saved",
-                    Toast.LENGTH_SHORT
-            ).show();
-
-            Intent intent =
-                    new Intent(
-                            AddExpense.this,
-                            Dashboard.class
-                    );
-
-            startActivity(intent);
-
         });
-
-        // Dark Mode
-
-        switchDark.setOnCheckedChangeListener(
-                (buttonView, isChecked) -> {
-
-                    if(isChecked) {
-
-                        AppCompatDelegate.setDefaultNightMode(
-                                AppCompatDelegate.MODE_NIGHT_YES
-                        );
-
-                    }
-                    else {
-
-                        AppCompatDelegate.setDefaultNightMode(
-                                AppCompatDelegate.MODE_NIGHT_NO
-                        );
-
-                    }
-
-                });
-
     }
-
 }
